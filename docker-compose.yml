@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15               # versão do PostgreSQL que vamos usar
+    container_name: agendamed_db     # nome do container para fácil identificação
+    restart: always                  # reinicia automaticamente se cair
+    environment:
+      POSTGRES_USER: agendamed_user      # usuário do banco — igual ao .env
+      POSTGRES_PASSWORD: agendamed_pass  # senha do banco — igual ao .env
+      POSTGRES_DB: agendamed_db          # nome do banco — igual ao .env
+    ports:
+      - "5433:5432"                  # porta_do_host:porta_do_container
+    volumes:
+      - agendamed_data:/var/lib/postgresql/data  # persiste os dados entre reinicializações
+
+volumes:
+  agendamed_data:                    # volume nomeado para guardar os dados do banco
